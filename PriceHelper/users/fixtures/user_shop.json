@@ -1,0 +1,1 @@
+[{"model": "users.user_shop", "pk": 1, "fields": {"user": 1, "shop": 1}}, {"model": "users.user_shop", "pk": 2, "fields": {"user": 1, "shop": 2}}, {"model": "users.user_shop", "pk": 4, "fields": {"user": 2, "shop": 1}}, {"model": "users.user_shop", "pk": 7, "fields": {"user": 1, "shop": 3}}, {"model": "users.user_shop", "pk": 8, "fields": {"user": 1, "shop": 5}}]

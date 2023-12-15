@@ -1,0 +1,148 @@
+{% extends 'price/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div>
+    <h2 class="main_label">Таблица цен</h2>
+    <table border="1" class="price_table">
+        <thead>
+            <tr>
+                <th class="shop_h">
+                    <form method="post">
+                        {% csrf_token %}
+                            {{ product_user_form.product }}
+                            <input type="submit" value="Добавить продукт" name="add_product_to_user">
+                    </form>
+                    <form method="post">
+                        {% csrf_token %}
+                            {{ shop_user_form.shop }}
+                            <input type="submit" value="Добавить магазин" name="add_shop_to_user">
+                    </form>
+                </th>
+                {% for user_shop in user_shops %}
+                    <th class="cell">
+                        <div>
+                            <img class="shop_icon" src="{% if user_shop.icon %}
+                                {{ user_shop.icon.url }}
+                                {% else %}
+                                {% static 'img/shop/shop_default.jpg' %}
+                                {% endif %}" alt="">
+                        </div>
+                        <div class="cell">
+                            {{ user_shop.name }}
+                            <form method="post" action="{% url 'price:delete_user_shop' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="user_id" value = "{{ user.id }}">
+                                <input type="hidden" name="shop_id" value = "{{ user_shop.id }}">
+                                <button class="button-delete" type="submit">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for user_product in user_products %}
+                <tr>
+                    <td class="cell">
+                        <div>
+                            <img class="product_icon" src="{% if user_product.icon %}
+                                {{ user_product.icon.url }}
+                                {% else %}
+                                {% static 'img/product/product_default.jpg' %}
+                                {% endif %}" alt="">
+                        </div>
+                        <div class="cell_info">
+                            {{ user_product.name }}
+                            <form method="post" action="{% url 'price:delete_user_product' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="user_id" value = "{{ user.id }}">
+                                <input type="hidden" name="product_id" value = "{{ user_product.id }}">
+                                <button class="button-delete" type="submit">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                    {% for user_shop in user_shops %}
+                        <td class="price_cell">
+                            {% for price in prices %}
+                                {% if price.product.product == user_product %}
+                                    {% if price.shop.shop == user_shop %}
+                                        {{ price.price }}
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            <div class="price_change">
+                                <form method="post" action="{% url 'price:update_price' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="user_id" value="{{ user.id }}">
+                                    <input type="hidden" name="product_id" value="{{ user_product.id }}">
+                                    <input type="hidden" name="shop_id" value="{{ user_shop.id }}">
+                                    <input type="number" step="0.01" name="price" min="0">
+                                    <button type="submit" name="update_price">Сохранить</button>
+                                </form>
+                            </div>
+                        </td>
+                    {% endfor %}
+<!--                    {% for price in prices %}-->
+<!--                        {% if price.product.product.name == user_product.name %}-->
+<!--                            <td>-->
+<!--                                {{ price.price }}-->
+<!--                            </td>-->
+<!--                        {% endif %}-->
+<!--                    {% endfor %}-->
+                </tr>
+            {% endfor %}
+        </tbody>
+<!--        <tbody>-->
+<!--            <tr>-->
+<!--                <td>-->
+<!--                    Ok-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--        </tbody>-->
+    </table>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <label for="{{ product_form.category.id_for_label }}">Категория</label>
+            {{ product_form.category }}
+        </div>
+        <div>
+            <label for="{{ product_form.name.id_for_label }}">Название продукта</label>
+            {{ product_form.name }}
+        </div>
+        <div>
+            {{ product_form.icon }}
+            <label for="{{ product_form.icon.id_for_label }}">Выберите изображение</label>
+        </div>
+        <div>
+            <input type="submit" value="Создать продукт" name="add_product">
+        </div>
+    </form>
+    <hr>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <label for="{{ shop_form.name.id_for_label }}">Название магазина</label>
+            {{ shop_form.name }}
+        </div>
+        <div>
+            {{ shop_form.icon }}
+            <label for="{{ shop_form.icon.id_for_label }}">Выберите изображение</label>
+        </div>
+        <div>
+            <label for="{{ shop_form.adress.id_for_label }}">Адрес магазина</label>
+            {{ shop_form.adress }}
+        </div>
+        <div>
+            <input type="submit" value="Создать магазин" name="add_shop">
+        </div>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'price/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div>
+    <h2 class="main_label">Личный кабинет</h2>
+	<h1>check</h1>
+    <div class="main-box">
+        <div>
+        <img class="user_avatar" width="100" height="100"
+            src="{% if user.avatar %}
+            {{ user.avatar.url }}
+            {% else %}
+            {% static 'img/users/default_avatar.jpg' %}
+            {% endif %}">
+    </div>
+    <form action="{% url 'price:profile' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <label for="{{ form.first_name.id_for_label }}">Имя</label>
+            {{ form.first_name }}
+        </div>
+        <div>
+            <label for="{{ form.last_name.id_for_label }}">Фамилия</label>
+            {{ form.last_name }}
+        </div>
+        <div>
+            {{ form.avatar }}
+            <label for="{{ form.avatar.id_for_label }}">Выберите изображение</label>
+        </div>
+        <div>
+            <label for="{{ form.first_name.id_for_label }}">Имя пользователя</label>
+            {{ form.username }}
+        </div>
+        <div>
+            <label for="{{ form.first_name.id_for_label }}">Адрес электронной почты</label>
+            {{ form.email }}
+        </div>
+        <div>
+            {{ form.city }}
+        </div>
+<!--        <div>-->
+<!--            <select name="city">-->
+<!--                {% for city in cities %}-->
+<!--                    {% if city.id == form.city.id %}-->
+<!--                        <option value="{{ city.id }}" selected>-->
+<!--                            {{ city.name }}-->
+<!--                        </option>-->
+<!--                    {% else %}-->
+<!--                        <option value="{{ city.id }}">-->
+<!--                            {{ city.name }}-->
+<!--                        </option>-->
+<!--                    {% endif %}-->
+<!--                {% endfor %}-->
+<!--            </select>-->
+<!--        </div>-->
+        <div>
+            <label for="{{ form.private.id_for_label }}">Приватный аккаунт</label>
+            {{ form.private }}
+        </div>
+        <div>
+            <input type="submit" value="Сохранить">
+        </div>
+    </form>
+            <a class="logout-label" href="{% url 'users:logout' %}">
+        Выйти
+    </a>
+    </div>
+<!--                style="-->
+<!--        margin-top: 33px;-->
+<!--        "-->
+
+</div>
+
+{% endblock %}

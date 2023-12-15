@@ -1,0 +1,66 @@
+{% extends 'price/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h2 class="main_label">
+    Список всех пользователей
+</h2>
+
+<div class="main-box p-4 mb-0 shadow-sm user-dashboard-info-box" >
+    <table class="table manage-candidates-top">
+        <thead class="table_head">
+            <tr>
+                <th>Пользователь</th>
+                <th>Таблица цен</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in user_list %}
+                <tr class="candidates-list">
+                    <td class="title">
+                        <div class="thumb candidate-list-image" >
+                            <img class="user_avatar" src="{% if user.avatar %}
+                                {{ user.avatar.url }}
+                                {% else %}
+                                {% static 'img/users/default_avatar.jpg' %}
+                                {% endif %}" alt="">
+                        </div>
+                        <div class="candidate-list-details">
+                            <div>
+                                <h5>{{ user.first_name }} {{ user.last_name }}</h5>
+                            </div>
+                            <div>
+                                <ul>
+                                    <li>
+                                        <i class="fas fa-envelope"></i>
+                                        {{ user.email }}
+                                    </li>
+                                        {% if user.city and user.city.name != 'Другой город'%}
+                                            <li>
+                                                <i class="fas fa-map-marker-alt"></i>
+                                                {{ user.city }}
+                                            </li>
+                                        {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="to_table">
+                        <a href="#">Посмотреть таблицу</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!--<ul>-->
+<!--    {% for user in user_list %}-->
+<!--        <li>-->
+<!--            {{ user.username }} - {{ user.email }}-->
+<!--        </li>-->
+<!--    {% endfor %}-->
+<!--</ul>-->
+
+{% endblock %}
