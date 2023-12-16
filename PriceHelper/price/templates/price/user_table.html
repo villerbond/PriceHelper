@@ -12,7 +12,7 @@
 
                 </th>
                 {% for user_shop in user_shops %}
-                    <th class="cell">
+                    <th>
                         <div>
                             <img class="shop_icon" src="{% if user_shop.icon %}
                                 {{ user_shop.icon.url }}
@@ -30,7 +30,7 @@
         <tbody>
             {% for user_product in user_products %}
                 <tr>
-                    <td class="cell">
+                    <td>
                         <div>
                             <img class="product_icon" src="{% if user_product.icon %}
                                 {{ user_product.icon.url }}
@@ -43,7 +43,7 @@
                         </div>
                     </td>
                     {% for user_shop in user_shops %}
-                        <td class="price_cell">
+                        <td>
                             {% for price in prices %}
                                 {% if price.product.product == user_product %}
                                     {% if price.shop.shop == user_shop %}
