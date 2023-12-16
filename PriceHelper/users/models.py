@@ -40,7 +40,7 @@ class User_Shop(models.Model):
     class Meta:
         constraints = [
             models.CheckConstraint(
-                check=models.Q(difficulty__gte=1) & models.Q(difficulty__lt=5),
-                name="A value of difficulty is valid between 1 and 10",
+                check=models.Q(difficulty__gte=1) & models.Q(difficulty__lt=6),
+                name="A value of difficulty is valid between 1 and 5",
             )
         ]
