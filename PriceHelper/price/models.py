@@ -40,4 +40,4 @@ class Basket(models.Model):
     count = models.IntegerField()
 
     def __str__(self):
-        return self.user_product.product.name + ' x' + self.count
+        return self.user_product.product.name + ' x' + str(self.count)

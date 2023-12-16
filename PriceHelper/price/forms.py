@@ -1,5 +1,5 @@
 from django import forms
-from .models import Product, Shop, Category, Price
+from .models import Product, Shop, Category, Price, Basket
 from users.models import User_Product, User_Shop
 from django.db.models import Q
 
@@ -57,6 +57,23 @@ class AddShopForm(forms.Form):
 
     def save(self):
         Shop.objects.create(name = self.data['name'], icon = self.cleaned_data['icon'], adress = self.data['adress'], author = self.user)
+
+class UserProductChoiceField(forms.ModelChoiceField):
+    def label_from_instance(self, obj):
+        return obj.product.name
+
+class AddUserProductToBasket(forms.Form):
+
+    def __init__(self, user, *args, **kwargs):
+        super(AddUserProductToBasket, self).__init__(*args, **kwargs)
+        existing_products = Basket.objects.filter(user_product__user = user).values_list('user_product__product_id', flat=True)
+        user_products = User_Product.objects.filter(user = user).exclude(product_id__in=existing_products)
+        self.fields['user_product'] = UserProductChoiceField(queryset=user_products.order_by('product__name'))
+        self.fields['count'] = forms.IntegerField(min_value=1)
+        # self.fields['count'] = forms.ChoiceField(choices=[(i, i) for i in range(1, 6)])
+
+    def save(self):
+        Basket.objects.create(user_product = self.cleaned_data['user_product'], count = self.data['count'])
 
 class PriceForm(forms.ModelForm):
     class Meta:

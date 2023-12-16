@@ -88,6 +88,7 @@
             border-radius: 3px;
             margin-left: 20vw;
             margin-right: 20vw;
+            padding: 10px;
         }
 body{
     background-color: #f8f9fa!important
@@ -217,6 +218,9 @@ body{
 .price_change {
     display: none;
 }
+.price_table {
+        background: #ffffff;
+}
 .price_cell:hover {
     -webkit-box-shadow: 0px 0px 34px 4px rgba(33, 37, 41, 0.06);
     box-shadow: 0px 0px 34px 4px rgba(33, 37, 41, 0.06);
@@ -227,12 +231,31 @@ body{
 .price_cell {
     width: 100px;
 }
-    .popup {
-      display: none;
-      position: absolute;
-      background-color: #f9f9f9;
-      border: 1px solid #ccc;
-      padding: 10px;
+    .form_for_busket {
+        border: 1px solid #000;
+        padding: 20px;
+        margin: 20px;
+            text-align: center;
+    }
+    .basket_table {
+        margin-left: 20px;
+        width: 23vw;
+            background: #ffffff;
+    }
+    .trash_cell {
+                    text-align: center;
+    }
+    .basket_and_info {
+        display: flex;
+
+    }
+        .get_shops {
+        border: 1px solid #000;
+        padding-top: 2vh;
+        margin-left: 10vw;
+        text-align: center;
+        width: 62vw;
+            background: #ffffff;
     }
     </style>
 </head>
@@ -252,6 +275,11 @@ body{
     <li>
         <a href="{% url 'price:table' %}">
             Таблица
+        </a>
+    </li>
+    <li>
+        <a href="{% url 'price:basket' %}">
+            Корзина
         </a>
     </li>
     <li>

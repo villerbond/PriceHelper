@@ -1,0 +1,67 @@
+{% extends 'price/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div>
+    <h2 class="main_label">Корзина</h2>
+    <div class="form_for_busket main-box">
+        <form method="post">
+            {% csrf_token %}
+            <div>
+                <label for="{{ basket_form.user_product.id_for_label }}">Выберите продукт</label>
+                {{ basket_form.user_product }}
+            </div>
+            <div>
+                <label for="{{ basket_form.count.id_for_label }}">Количество</label>
+                {{ basket_form.count }}
+            </div>
+            <input type="submit" value="Добавить продукт в корзину" name="add_product_to_user">
+        </form>
+    </div>
+    <div class="basket_and_info">
+        <div>
+        {% if added_products %}
+            <table border="1" class="basket_table">
+                <tbody>
+                    {% for product in added_products %}
+                        <tr>
+                            <td>
+                                {{ product }}
+                            </td>
+                            <td class="trash_cell">
+                                <form method="post" action="{% url 'price:delete_product_basket' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="added_product_id" value="{{ product.id }}">
+                                    <button type="submit">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+        </div>
+        <div class="get_shops">
+            <form method="post">
+            {% csrf_token %}
+                <div>
+                    <label>Допустимая сложность (необязательно)</label>
+                    <input type="number" name="difficulty" min="1" max="5">
+                </div>
+                <div>
+                    <input type="submit" value="Получить выбор магазинов" name="best_prices">
+                </div>
+            </form>
+            {% if result %}
+                <div>
+                    {{ result }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
