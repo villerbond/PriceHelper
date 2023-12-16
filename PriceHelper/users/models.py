@@ -32,7 +32,15 @@ class User_Product(models.Model):
 class User_Shop(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
+    difficulty = models.SmallIntegerField()
 
     def __str__(self):
         return self.user.username + ' - ' + self.shop.name
 
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                check=models.Q(difficulty__gte=1) & models.Q(difficulty__lt=5),
+                name="A value of difficulty is valid between 1 and 10",
+            )
+        ]

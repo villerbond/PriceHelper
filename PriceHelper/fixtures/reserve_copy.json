@@ -559,6 +559,149 @@
     }
   },
   {
+    "model": "admin.logentry",
+    "pk": 44,
+    "fields": {
+      "action_time": "2023-12-14T08:27:20.049Z",
+      "user": 1,
+      "content_type": 12,
+      "object_id": "35",
+      "object_repr": "Аладушки панкейки",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Icon\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 45,
+    "fields": {
+      "action_time": "2023-12-14T08:32:12.399Z",
+      "user": 1,
+      "content_type": 12,
+      "object_id": "9",
+      "object_repr": "Бананы",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Icon\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 46,
+    "fields": {
+      "action_time": "2023-12-14T08:32:25.474Z",
+      "user": 1,
+      "content_type": 12,
+      "object_id": "30",
+      "object_repr": "Бедра куриные",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Icon\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 47,
+    "fields": {
+      "action_time": "2023-12-14T08:32:30.974Z",
+      "user": 1,
+      "content_type": 12,
+      "object_id": "25",
+      "object_repr": "Вода",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Icon\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 48,
+    "fields": {
+      "action_time": "2023-12-14T08:32:38.307Z",
+      "user": 1,
+      "content_type": 12,
+      "object_id": "15",
+      "object_repr": "Зефир",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Icon\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 49,
+    "fields": {
+      "action_time": "2023-12-14T08:32:46.623Z",
+      "user": 1,
+      "content_type": 12,
+      "object_id": "4",
+      "object_repr": "Морковь",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Icon\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 50,
+    "fields": {
+      "action_time": "2023-12-14T09:20:39.875Z",
+      "user": 1,
+      "content_type": 12,
+      "object_id": "38",
+      "object_repr": "переццц",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 51,
+    "fields": {
+      "action_time": "2023-12-14T09:20:43.405Z",
+      "user": 1,
+      "content_type": 12,
+      "object_id": "37",
+      "object_repr": "а",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 52,
+    "fields": {
+      "action_time": "2023-12-14T09:20:47.419Z",
+      "user": 1,
+      "content_type": 12,
+      "object_id": "36",
+      "object_repr": "п",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 53,
+    "fields": {
+      "action_time": "2023-12-14T09:53:40.614Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "6",
+      "object_repr": "Краснодар",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 54,
+    "fields": {
+      "action_time": "2023-12-14T09:53:49.338Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "7",
+      "object_repr": "Новосибирск",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
     "model": "auth.permission",
     "pk": 1,
     "fields": {
@@ -1132,10 +1275,10 @@
   },
   {
     "model": "sessions.session",
-    "pk": "2ngvpqm0bl1iuiydy8mveedloapkxmjs",
+    "pk": "wluvp66l2aakh7c97vg980cebzmuoa32",
     "fields": {
-      "session_data": ".eJxVjEEOwiAQRe_C2hAGCgwu3XsGQplBqoYmpV0Z765NutDtf-_9l4hpW2vcOi9xInEWIE6_25jyg9sO6J7abZZ5busyjXJX5EG7vM7Ez8vh_h3U1Ou3TobQBFQQrEGwNNiiibULSSvC4jM7DWwVAaPyRjmPDgZTyGWXFWrx_gC7jja8:1rDQpV:n5kjwkpSw39PhgmdiTGtKFqbb3d8jIkCWLqkI-dg4XE",
-      "expire_date": "2023-12-27T15:07:21.053Z"
+      "session_data": ".eJxVjEEOwiAQRe_C2hAGCgwu3XsGQplBqoYmpV0Z765NutDtf-_9l4hpW2vcOi9xInEWIE6_25jyg9sO6J7abZZ5busyjXJX5EG7vM7Ez8vh_h3U1Ou3TobQBFQQrEGwNNiiibULSSvC4jM7DWwVAaPyRjmPDgZTyGWXFWrx_gC7jja8:1rDiV4:2Lhnu_6SOewI7aYbMvnESfZFotxP2TJXaLhyYYcCar0",
+      "expire_date": "2023-12-28T09:59:26.341Z"
     }
   },
   {
@@ -1179,21 +1322,37 @@
     }
   },
   {
+    "model": "users.city",
+    "pk": 6,
+    "fields": {
+      "name": "Краснодар",
+      "custom": false
+    }
+  },
+  {
+    "model": "users.city",
+    "pk": 7,
+    "fields": {
+      "name": "Новосибирск",
+      "custom": false
+    }
+  },
+  {
     "model": "users.user",
     "pk": 1,
     "fields": {
       "password": "pbkdf2_sha256$260000$CuHRbQe01qT98K5W4LJ1iX$KXEmeWw7shNCVpLzvM9GRhjMnIthE2920yxslKc9s/U=",
-      "last_login": "2023-12-13T15:07:21.040Z",
+      "last_login": "2023-12-14T09:59:26.334Z",
       "is_superuser": true,
       "username": "god",
-      "first_name": "Иисус",
-      "last_name": "Христосик",
+      "first_name": "Админ",
+      "last_name": "Админов",
       "email": "god@paradise.au",
       "is_staff": true,
       "is_active": true,
       "date_joined": "2023-12-08T19:09:02Z",
-      "avatar": "users_avatars/помада.png",
-      "city": null,
+      "avatar": "users_avatars/Фродо.png",
+      "city": 2,
       "private": false,
       "groups": [],
       "user_permissions": []
@@ -1204,7 +1363,7 @@
     "pk": 2,
     "fields": {
       "password": "pbkdf2_sha256$260000$3jTToUSawWEjCDkcq64nUV$VjAvLrnh22V7G/LjwzU74DvSBKni1SAlzDrkRH3wboY=",
-      "last_login": "2023-12-13T13:34:35.370Z",
+      "last_login": "2023-12-14T09:58:52.843Z",
       "is_superuser": false,
       "username": "villerbond",
       "first_name": "Yaroslav",
@@ -1214,7 +1373,7 @@
       "is_active": true,
       "date_joined": "2023-12-08T19:10:45.327Z",
       "avatar": "users_avatars/photo_2023-01-29_17-44-45_2.jpg",
-      "city": 5,
+      "city": 3,
       "private": false,
       "groups": [],
       "user_permissions": []
@@ -1246,7 +1405,7 @@
     "pk": 4,
     "fields": {
       "password": "pbkdf2_sha256$260000$VIQqIKpzYnSWLHe1cPWdlK$V89IZCEPrFr1HAJ3PQy1MvITmIuOCcAOUH6W/uSmj1w=",
-      "last_login": "2023-12-12T18:16:05.566Z",
+      "last_login": "2023-12-14T09:59:13.906Z",
       "is_superuser": false,
       "username": "vitalit",
       "first_name": "Виталий",
@@ -1256,7 +1415,70 @@
       "is_active": true,
       "date_joined": "2023-12-12T18:16:00.568Z",
       "avatar": "",
-      "city": null,
+      "city": 4,
+      "private": false,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 5,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$feuythH67jOFP3pxCol5pe$JoPXt30LcJx4wD1ZUWug8fxvz+4AXwHnaFAgwiYAIeQ=",
+      "last_login": "2023-12-14T09:56:06.355Z",
+      "is_superuser": false,
+      "username": "karkusha",
+      "first_name": "Ринат",
+      "last_name": "Губайдуллин",
+      "email": "karkusha@yandex.ru",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-12-14T09:55:56.745Z",
+      "avatar": "users_avatars/wF-AR5suGbI.jpg",
+      "city": 3,
+      "private": false,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 6,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$azpvbLbtASRSoU03T5vzfR$sFSecSn3z0JqzcTKRmVuoCIwGKplb0US1YOr+rrhh6k=",
+      "last_login": "2023-12-14T09:57:41.657Z",
+      "is_superuser": false,
+      "username": "vortexxx",
+      "first_name": "Николай",
+      "last_name": "Гук",
+      "email": "vortexxx@gmail.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-12-14T09:57:35.360Z",
+      "avatar": "users_avatars/YbPsNV5hOx4.jpg",
+      "city": 6,
+      "private": false,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 7,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$lPDhC02QBcTDHQVC4JYT22$Hfk6bWLqVFLur3BLsq7RQ77rX6sGB0M9TinimvI18s4=",
+      "last_login": "2023-12-14T09:58:34.992Z",
+      "is_superuser": false,
+      "username": "hanbinger",
+      "first_name": "Леонид",
+      "last_name": "Фомин",
+      "email": "hbg@yandex.ru",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-12-14T09:58:32.350Z",
+      "avatar": "users_avatars/WK1FRZsHoV8.jpg",
+      "city": 6,
       "private": false,
       "groups": [],
       "user_permissions": []
@@ -1304,34 +1526,10 @@
   },
   {
     "model": "users.user_product",
-    "pk": 12,
-    "fields": {
-      "user": 1,
-      "product": 33
-    }
-  },
-  {
-    "model": "users.user_product",
     "pk": 14,
     "fields": {
       "user": 1,
       "product": 30
-    }
-  },
-  {
-    "model": "users.user_product",
-    "pk": 15,
-    "fields": {
-      "user": 1,
-      "product": 34
-    }
-  },
-  {
-    "model": "users.user_product",
-    "pk": 16,
-    "fields": {
-      "user": 1,
-      "product": 3
     }
   },
   {
@@ -1348,6 +1546,14 @@
     "fields": {
       "user": 1,
       "product": 9
+    }
+  },
+  {
+    "model": "users.user_product",
+    "pk": 21,
+    "fields": {
+      "user": 1,
+      "product": 35
     }
   },
   {
@@ -1376,26 +1582,18 @@
   },
   {
     "model": "users.user_shop",
-    "pk": 5,
-    "fields": {
-      "user": 1,
-      "shop": 5
-    }
-  },
-  {
-    "model": "users.user_shop",
-    "pk": 6,
-    "fields": {
-      "user": 1,
-      "shop": 4
-    }
-  },
-  {
-    "model": "users.user_shop",
     "pk": 7,
     "fields": {
       "user": 1,
       "shop": 3
+    }
+  },
+  {
+    "model": "users.user_shop",
+    "pk": 8,
+    "fields": {
+      "user": 1,
+      "shop": 5
     }
   },
   {
@@ -1489,7 +1687,7 @@
     "pk": 4,
     "fields": {
       "name": "Морковь",
-      "icon": "",
+      "icon": "product_icons/morkov-768x512.jpg",
       "category": 7,
       "author": null
     }
@@ -1539,7 +1737,7 @@
     "pk": 9,
     "fields": {
       "name": "Бананы",
-      "icon": "",
+      "icon": "product_icons/eWbWKcCx9zc.jpg",
       "category": 4,
       "author": null
     }
@@ -1599,7 +1797,7 @@
     "pk": 15,
     "fields": {
       "name": "Зефир",
-      "icon": "",
+      "icon": "product_icons/1f726ba4fba511ed903c00155d203202_78fb3390fba511ed903c00155d203202.jpg",
       "category": 6,
       "author": null
     }
@@ -1699,7 +1897,7 @@
     "pk": 25,
     "fields": {
       "name": "Вода",
-      "icon": "",
+      "icon": "product_icons/77e48139084e43868d8bcdf05a8f5d02.jpg",
       "category": 5,
       "author": null
     }
@@ -1749,7 +1947,7 @@
     "pk": 30,
     "fields": {
       "name": "Бедра куриные",
-      "icon": "",
+      "icon": "product_icons/bedro-kurinoe-bez-kosti-yasnye-zori.jpg",
       "category": 2,
       "author": null
     }
@@ -1799,8 +1997,18 @@
     "pk": 35,
     "fields": {
       "name": "Аладушки панкейки",
-      "icon": "",
+      "icon": "product_icons/22436094_1.jpg",
       "category": 6,
+      "author": null
+    }
+  },
+  {
+    "model": "price.product",
+    "pk": 39,
+    "fields": {
+      "name": "Перец болгарский",
+      "icon": "product_icons/channels4_profile_B6VyS12.jpg",
+      "category": 7,
       "author": null
     }
   },
@@ -1852,16 +2060,6 @@
       "adress": "",
       "icon": "",
       "author": 1
-    }
-  },
-  {
-    "model": "price.price",
-    "pk": 1,
-    "fields": {
-      "shop": 2,
-      "product": 19,
-      "price": "32.50",
-      "comment": null
     }
   }
 ]

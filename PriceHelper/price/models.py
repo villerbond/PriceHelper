@@ -34,3 +34,10 @@ class Price(models.Model):
 
     def __str__(self):
         return self.shop.user.username + ': ' + self.shop.shop.name + ' ' + self.product.product.name
+
+class Basket(models.Model):
+    user_product = models.ForeignKey('users.User_Product', on_delete=models.CASCADE)
+    count = models.IntegerField()
+
+    def __str__(self):
+        return self.user_product.product.name + ' x' + self.count
