@@ -142,3 +142,4 @@ https://miro.com/app/board/uXjVNOVcT6c=/?share_link_id=679770638265
 ## Структура БД
 https://lucid.app/lucidchart/76d604a4-8063-4ed8-876e-46c6e4a8587f/edit?invitationId=inv_508c6e08-cf5c-4622-988a-78ded2984e8b
 
+![ER-диаграмма базы данных (с «вороньими лапками»)](https://github.com/villerbond/PriceHelper/assets/91826226/72c763a8-e337-4c4d-b020-e061d89f4222)
