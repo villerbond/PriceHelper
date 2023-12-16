@@ -15,13 +15,14 @@ Including another URLconf
 """
 from django.urls import path
 
-from price.views import table, other_tables, profile, delete_user_product, delete_user_shop, update_price
+from price.views import table, other_tables, user_table, profile, delete_user_product, delete_user_shop, update_price
 
 app_name = 'price'
 
 urlpatterns = [
     path('table/', table, name='table'),
     path('other_tables/', other_tables, name='other_tables'),
+    path('other_tables/<str:username>/', user_table, name='user_table'),
     path('profile/', profile, name='profile'),
     path('delete_user_product/', delete_user_product, name='delete_user_product'),
     path('delete_user_shop/', delete_user_shop, name='delete_user_shop'),

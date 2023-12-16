@@ -1,0 +1,62 @@
+{% extends 'price/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div>
+    <h2 class="main_label">Таблица цен {{ username }}'а</h2>
+    <table border="1" class="price_table">
+        <thead>
+            <tr>
+                <th class="shop_h">
+
+                </th>
+                {% for user_shop in user_shops %}
+                    <th class="cell">
+                        <div>
+                            <img class="shop_icon" src="{% if user_shop.icon %}
+                                {{ user_shop.icon.url }}
+                                {% else %}
+                                {% static 'img/shop/shop_default.jpg' %}
+                                {% endif %}" alt="">
+                        </div>
+                        <div class="cell">
+                            {{ user_shop.name }}
+                        </div>
+                    </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for user_product in user_products %}
+                <tr>
+                    <td class="cell">
+                        <div>
+                            <img class="product_icon" src="{% if user_product.icon %}
+                                {{ user_product.icon.url }}
+                                {% else %}
+                                {% static 'img/product/product_default.jpg' %}
+                                {% endif %}" alt="">
+                        </div>
+                        <div class="cell_info">
+                            {{ user_product.name }}
+                        </div>
+                    </td>
+                    {% for user_shop in user_shops %}
+                        <td class="price_cell">
+                            {% for price in prices %}
+                                {% if price.product.product == user_product %}
+                                    {% if price.shop.shop == user_shop %}
+                                        {{ price.price }}
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

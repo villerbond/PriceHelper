@@ -47,7 +47,7 @@
                         </div>
                     </td>
                     <td class="to_table">
-                        <a href="#">Посмотреть таблицу</a>
+                        <a href="{% url 'price:user_table' username=user.username %}">Посмотреть таблицу</a>
                     </td>
                 </tr>
             {% endfor %}

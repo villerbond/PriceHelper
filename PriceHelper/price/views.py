@@ -58,6 +58,23 @@ def table(request):
     }
     return render(request, 'price/table.html', context)
 
+def user_table(request, username):
+    user = User.objects.get(username=username)
+    user_shops = user.shops.all().order_by('name')
+    count_of_shops = len(user_shops)
+    user_products = user.products.all().order_by('name')
+    prices = Price.objects.filter(product__user=user)
+
+    context = {
+        'title': 'Таблица цен',
+        'username': username,
+        'user_shops': user_shops,
+        'len': count_of_shops,
+        'user_products': user_products,
+        'prices': prices
+    }
+    return render(request, 'price/user_table.html', context)
+
 def delete_user_product(request):
     if request.method == 'POST':
         user_id = request.POST.get('user_id')
