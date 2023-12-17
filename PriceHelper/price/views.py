@@ -102,8 +102,6 @@ def import_table(request, username):
         User_Shop.objects.create(user=curr_user, shop=shop.shop, difficulty=shop.difficulty)
 
     for price in imp_prices:
-        print(price.product.product)
-        print(price.shop.shop)
         new_user_product = User_Product.objects.get(user=curr_user, product=price.product.product)
         new_user_shop = User_Shop.objects.get(user=curr_user, shop=price.shop.shop)
         Price.objects.create(product=new_user_product, shop=new_user_shop, price=price.price)
@@ -165,14 +163,103 @@ class ShopChoice:
         self.price = price
 
     def __str__(self):
-        return str(self.product) + ' ' + self.shop + ' ' + str(self.price)
+        return str(self.product) + ' ' + str(self.shop) + ' ' + str(self.price)
+
+    def diff(self):
+        if self.shop == 'Нет магазина':
+            return 0
+        return self.shop.difficulty
+
+class ShopsChoice:
+    def __init__(self):
+        self.data = []
+
+    def append(self, shop_choice):
+        return self.data.append(shop_choice)
+
+    def total_difficulty(self):
+        sum = 0
+        added_shops = []
+        for el in self.data:
+            if el.shop in added_shops:
+                continue
+            else:
+                sum += el.diff()
+                added_shops.append(el.shop)
+        return sum
+
+    def count_of_shops(self):
+        count = 0
+        added_shops = []
+        for el in self.data:
+            if el.shop in added_shops:
+                continue
+            else:
+                count += 1
+                added_shops.append(el.shop)
+        return count
+
+    def total_price(self):
+        sum = 0
+        for el in self.data:
+            sum += el.price
+        return sum
+
+    def have(self, shop):
+        for el in self.data:
+            if el.shop == shop:
+                return True
+        return False
+
+    def is_not_full(self):
+        for el in self.data:
+            if el.shop == 'Нет магазина':
+                return True
+        return False
+
+    def len(self):
+        return len(self.data)
+
+def get_best_choice(added_products, user_shops):
+    best_prices = ShopsChoice()
+    full_prices = True
+
+    for product in added_products:
+        prod_to_add = product
+        price_to_add = -1
+        for shop in user_shops:
+            curr_price = Price.objects.filter(shop=shop, product=product.user_product)
+            if curr_price.exists():
+                if price_to_add < 0:
+                    shop_to_add = shop
+                    price_to_add = curr_price.first().price
+                else:
+                    if curr_price.first().price < price_to_add:
+                        shop_to_add = shop
+                        price_to_add = curr_price.first().price
+                    elif curr_price.first().price == price_to_add:
+                        if best_prices.have(shop):
+                            shop_to_add = shop
+                            price_to_add = curr_price.first().price
+        if price_to_add < 0:
+            full_prices = False
+            best_prices.append(ShopChoice(prod_to_add, 'Нет магазина', 0))
+        else:
+            best_prices.append(ShopChoice(prod_to_add, shop_to_add, price_to_add))
+
+    return best_prices, full_prices
 
 def basket(request):
     user = request.user
     user_products = User_Product.objects.filter(user=user)
     added_products = Basket.objects.filter(user_product__in = user_products)
-    best_prices = []
-    result = None
+    best_prices = ShopsChoice()
+    total_diff = 0
+    total_sum = 0
+    is_result = False
+    is_shops = True
+    exist_full_prices = False
+
     if request.method == 'POST':
         if 'add_product_to_user' in request.POST:
             basket_form = AddUserProductToBasket(user, request.POST)
@@ -181,14 +268,63 @@ def basket(request):
                 return HttpResponseRedirect(reverse('price:basket'))
         elif 'best_prices' in request.POST:
             difficulty = request.POST.get('difficulty')
+            user_shops = User_Shop.objects.filter(user=user)
 
-            for product in added_products:
-                best_prices.append(ShopChoice(str(product), 'Пятерочка', 100))
+            if difficulty:
+                from itertools import combinations
+                result = []
+                for r in range(1, len(user_shops) + 1):
+                    for combo in combinations(user_shops, r):
+                        if sum(shop.difficulty for shop in combo) <= int(difficulty):
+                            result.append(list(combo))
 
-            for i in range(len(best_prices)):
-                print(best_prices[i])
+                min_price = -1
+                for shops in result:
+                    temp, full_prices = get_best_choice(added_products, shops)
+                    if not full_prices:
+                        if exist_full_prices:
+                            continue
+                    else:
+                        exist_full_prices = True
+                    temp_price = temp.total_price()
+                    if min_price < 0 or (best_prices.is_not_full()):
+                        if min_price < 0:
+                            best_prices = temp
+                            min_price = temp_price
+                        if temp.is_not_full():
+                            if temp.total_price() < best_prices.total_price():
+                                best_prices = temp
+                                min_price = temp_price
+                            elif temp.total_price() == best_prices.total_price():
+                                if temp.total_difficulty() < best_prices.total_difficulty():
+                                    best_prices = temp
+                                    min_price = temp_price
+                        else:
+                            best_prices = temp
+                            min_price = temp_price
+                    else:
+                        if temp_price < min_price:
+                            best_prices = temp
+                            min_price = temp_price
+                        elif temp_price == min_price:
+                            if best_prices.total_difficulty() < temp.total_difficulty():
+                                continue
+                            elif best_prices.total_difficulty() == temp.total_difficulty():
+                                if temp.count_of_shops() < best_prices.count_of_shops():
+                                    best_prices = temp
+                                    min_price = temp_price
+                            else:
+                                best_prices = temp
+                                min_price = temp_price
+            else:
+                best_prices, full_prices = get_best_choice(added_products, user_shops)
 
-            result = difficulty
+            if best_prices.count_of_shops() == 0:
+                is_shops = False
+
+            total_diff = best_prices.total_difficulty()
+            total_sum = best_prices.total_price()
+            is_result = True
 
     basket_form = AddUserProductToBasket(user)
     context = {
@@ -196,12 +332,12 @@ def basket(request):
         'basket_form': basket_form,
         'added_products': added_products,
         'best_prices': best_prices,
-        'result': result
+        'total_diff': total_diff,
+        'total_sum': total_sum,
+        'is_result': is_result,
+        'is_shops': is_shops
     }
     return render(request, 'price/basket.html', context)
-
-# def best_prices(request):
-#     return HttpResponseRedirect(reverse('price:basket'))
 
 def delete_product_basket(request):
     if request.method == 'POST':

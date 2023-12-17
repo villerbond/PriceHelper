@@ -11,12 +11,16 @@
                 <th class="shop_h">
                     <form method="post">
                         {% csrf_token %}
+                            <label for="{{ product_user_form.product.id_for_label }}">Выберите продукт</label>
                             {{ product_user_form.product }}
                             <input type="submit" value="Добавить продукт" name="add_product_to_user">
                     </form>
                     <form method="post">
                         {% csrf_token %}
+                            <label for="{{ shop_user_form.shop.id_for_label }}">Выберите магазин</label>
                             {{ shop_user_form.shop }}
+                            <label for="{{ shop_user_form.difficulty.id_for_label }}">Сложность</label>
+                            {{ shop_user_form.difficulty }}
                             <input type="submit" value="Добавить магазин" name="add_shop_to_user">
                     </form>
                 </th>

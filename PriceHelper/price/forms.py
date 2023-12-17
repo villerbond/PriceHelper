@@ -21,9 +21,10 @@ class AddShopToUserForm(forms.Form):
         self.user = user
         available_shops = Shop.objects.filter(Q(author__isnull=True) | Q(author=self.user)).exclude(user_shop__user=user)
         self.fields['shop'] = forms.ModelChoiceField(queryset=available_shops.order_by('name'))
+        self.fields['difficulty'] = forms.ChoiceField(choices=[(i, i) for i in range(1, 6)])
 
     def save(self):
-        User_Shop.objects.create(user = self.user, shop = self.cleaned_data['shop'])
+        User_Shop.objects.create(user = self.user, shop = self.cleaned_data['shop'], difficulty=self.data['difficulty'])
 
 class AddProductForm(forms.Form):
 

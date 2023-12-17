@@ -55,9 +55,74 @@
                     <input type="submit" value="Получить выбор магазинов" name="best_prices">
                 </div>
             </form>
-            {% if result %}
+            {% if is_result %}
                 <div>
-                    {{ result }}
+                    {% if is_shops %}
+                    <table border="1" class="best_prices_table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Продукт
+                                </th>
+                                <th>
+                                    Магазин
+                                </th>
+                                <th>
+                                    Цена
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in best_prices.data %}
+                                <tr>
+                                    <td>
+                                        {{ item.product }}
+                                    </td>
+                                    <td>
+                                        {% if item.shop == 'Нет магазина' %}
+                                            Нет магазинов
+                                        {% else %}
+                                            {{ item.shop.shop.name }}
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if item.shop == 'Нет магазина' %}
+                                            -
+                                        {% else %}
+                                            {{ item.price }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot >
+                            <tr>
+                                <td>
+
+                                </td>
+                                <td>
+                                    <div>
+                                        <b> Суммарная сложность </b>
+                                    </div>
+                                    <div>
+                                        <b> {{ total_diff }} </b>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <b> Итоговая сумма </b>
+                                    </div>
+                                    <div>
+                                        <b> {{ total_sum }} </b>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    {% else %}
+                        <hr>
+                        <b>К сожалению, нет подходящих магазинов допустимой сложности</b>
+                    {% endif %}
                 </div>
             {% endif %}
         </div>
