@@ -41,7 +41,8 @@ def table(request):
         shop_user_form = AddShopToUserForm(user)
         product_form = AddProductForm(user)
         shop_form = AddShopForm(user)
-    user_shops = user.shops.all().order_by('name')
+    user_shops = User_Shop.objects.filter(user=user)
+    # user_shops = user.shops.all().order_by('name')
     count_of_shops = len(user_shops)
     user_products = user.products.all().order_by('name')
     prices = Price.objects.filter(product__user=user)
@@ -128,11 +129,13 @@ def update_price(request):
         product_id = request.POST.get('product_id')
         shop_id = request.POST.get('shop_id')
         price_value = request.POST.get('price')
+        comment = request.POST.get('comment')
         user_product = User_Product.objects.get(user_id=user_id, product_id=product_id)
         user_shop = User_Shop.objects.get(user_id=user_id, shop_id=shop_id)
         price, created = Price.objects.get_or_create(product = user_product, shop = user_shop)
         if price_value:
             price.price = price_value
+            price.comment = comment
             price.save()
         else:
             Price.objects.get(product=user_product, shop=user_shop).delete()
@@ -245,7 +248,7 @@ def get_best_choice(added_products, user_shops):
             full_prices = False
             best_prices.append(ShopChoice(prod_to_add, 'Нет магазина', 0))
         else:
-            best_prices.append(ShopChoice(prod_to_add, shop_to_add, price_to_add))
+            best_prices.append(ShopChoice(prod_to_add, shop_to_add, price_to_add * product.count))
 
     return best_prices, full_prices
 
@@ -328,6 +331,7 @@ def basket(request):
 
     basket_form = AddUserProductToBasket(user)
     context = {
+        'title': 'Корзина',
         'user': user,
         'basket_form': basket_form,
         'added_products': added_products,
