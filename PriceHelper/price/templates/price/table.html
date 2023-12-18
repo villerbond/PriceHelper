@@ -27,14 +27,27 @@
                 {% for user_shop in user_shops %}
                     <th class="cell">
                         <div>
-                            <img class="shop_icon" src="{% if user_shop.icon %}
-                                {{ user_shop.icon.url }}
+                            <img class="shop_icon" src="{% if user_shop.shop.icon %}
+                                {{ user_shop.shop.icon.url }}
                                 {% else %}
                                 {% static 'img/shop/shop_default.jpg' %}
                                 {% endif %}" alt="">
                         </div>
                         <div class="cell">
-                            {{ user_shop.name }}
+                            {{ user_shop.shop.name }}
+                            <div>
+                                {% if user_shop.difficulty == 2 %}
+                                    ••◦◦◦
+                                {% elif user_shop.difficulty == 3 %}
+                                    •••◦◦
+                                {% elif user_shop.difficulty == 4 %}
+                                    ••••◦
+                                {% elif user_shop.difficulty == 5 %}
+                                    •••••
+                                {% else %}
+                                    •◦◦◦◦
+                                {% endif %}
+                            </div>
                             <form method="post" action="{% url 'price:delete_user_shop' %}">
                                 {% csrf_token %}
                                 <input type="hidden" name="user_id" value = "{{ user.id }}">
@@ -75,7 +88,7 @@
                         <td class="price_cell">
                             {% for price in prices %}
                                 {% if price.product.product == user_product %}
-                                    {% if price.shop.shop == user_shop %}
+                                    {% if price.shop.shop == user_shop.shop %}
                                         {{ price.price }}
                                     {% endif %}
                                 {% endif %}
@@ -85,8 +98,9 @@
                                     {% csrf_token %}
                                     <input type="hidden" name="user_id" value="{{ user.id }}">
                                     <input type="hidden" name="product_id" value="{{ user_product.id }}">
-                                    <input type="hidden" name="shop_id" value="{{ user_shop.id }}">
+                                    <input type="hidden" name="shop_id" value="{{ user_shop.shop.id }}">
                                     <input type="number" step="0.01" name="price" min="0">
+                                    <input name="comment" placeholder="Комментарий">
                                     <button type="submit" name="update_price">Сохранить</button>
                                 </form>
                             </div>
@@ -121,8 +135,8 @@
             {{ product_form.name }}
         </div>
         <div>
-            {{ product_form.icon }}
             <label for="{{ product_form.icon.id_for_label }}">Выберите изображение</label>
+            {{ product_form.icon }}
         </div>
         <div>
             <input type="submit" value="Создать продукт" name="add_product">
@@ -136,8 +150,8 @@
             {{ shop_form.name }}
         </div>
         <div>
-            {{ shop_form.icon }}
             <label for="{{ shop_form.icon.id_for_label }}">Выберите изображение</label>
+            {{ shop_form.icon }}
         </div>
         <div>
             <label for="{{ shop_form.adress.id_for_label }}">Адрес магазина</label>
