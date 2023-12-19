@@ -134,7 +134,7 @@ def update_price(request):
         user_shop = User_Shop.objects.get(user_id=user_id, shop_id=shop_id)
         price, created = Price.objects.get_or_create(product = user_product, shop = user_shop)
         if price_value:
-            price.price = price_value
+            price.price = float(price_value.replace(",", "."))
             price.comment = comment
             price.save()
         else:

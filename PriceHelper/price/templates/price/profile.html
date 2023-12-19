@@ -17,26 +17,27 @@
     <form action="{% url 'price:profile' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div>
-            <label for="{{ form.first_name.id_for_label }}">Имя</label>
+            <label for="{{ form.first_name.id_for_label }}"><b>Имя</b></label>
             {{ form.first_name }}
         </div>
         <div>
-            <label for="{{ form.last_name.id_for_label }}">Фамилия</label>
+            <label for="{{ form.last_name.id_for_label }}"><b>Фамилия</b></label>
             {{ form.last_name }}
         </div>
         <div>
+            <label for="{{ form.avatar.id_for_label }}"><b>Выберите изображение</b></label>
             {{ form.avatar }}
-            <label for="{{ form.avatar.id_for_label }}">Выберите изображение</label>
         </div>
         <div>
-            <label for="{{ form.first_name.id_for_label }}">Имя пользователя</label>
+            <label for="{{ form.username.id_for_label }}"><b>Имя пользователя</b></label>
             {{ form.username }}
         </div>
         <div>
-            <label for="{{ form.first_name.id_for_label }}">Адрес электронной почты</label>
+            <label for="{{ form.email.id_for_label }}"><b>Адрес электронной почты</b></label>
             {{ form.email }}
         </div>
         <div>
+            <label for="{{ form.city.id_for_label }}"><b>Выберите город</b></label>
             {{ form.city }}
         </div>
 <!--        <div>-->
@@ -55,7 +56,7 @@
 <!--            </select>-->
 <!--        </div>-->
         <div>
-            <label for="{{ form.private.id_for_label }}">Приватный аккаунт</label>
+            <label for="{{ form.private.id_for_label }}"><b>Приватный аккаунт</b></label>
             {{ form.private }}
         </div>
         <div>

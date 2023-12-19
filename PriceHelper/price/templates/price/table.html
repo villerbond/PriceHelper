@@ -1,6 +1,11 @@
 {% extends 'price/base.html' %}
 {% load static %}
 
+{% block scripts %}
+    <script src="{% static 'js/edit_price_show.js' %}"></script>
+    <script src="{% static 'js/comment.js' %}"></script>
+{% endblock %}
+
 {% block content %}
 
 <div>
@@ -51,7 +56,7 @@
                             <form method="post" action="{% url 'price:delete_user_shop' %}">
                                 {% csrf_token %}
                                 <input type="hidden" name="user_id" value = "{{ user.id }}">
-                                <input type="hidden" name="shop_id" value = "{{ user_shop.id }}">
+                                <input type="hidden" name="shop_id" value = "{{ user_shop.shop.id }}">
                                 <button class="button-delete" type="submit">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
@@ -85,44 +90,39 @@
                         </div>
                     </td>
                     {% for user_shop in user_shops %}
-                        <td class="price_cell">
-                            {% for price in prices %}
-                                {% if price.product.product == user_product %}
-                                    {% if price.shop.shop == user_shop.shop %}
+                        <td class="price_cell" data-mousepopup="{% include 'price/price_comment.html' with user_product=user_product user_shop=user_shop prices=prices%}">
+                            <div class="price_value">
+                                {% for price in prices %}
+                                    {% if price.product.product == user_product and price.shop.shop == user_shop.shop %}
                                         {{ price.price }}
                                     {% endif %}
-                                {% endif %}
-                            {% endfor %}
+                                {% endfor %}
+                            </div>
                             <div class="price_change">
-                                <form method="post" action="{% url 'price:update_price' %}">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="user_id" value="{{ user.id }}">
-                                    <input type="hidden" name="product_id" value="{{ user_product.id }}">
-                                    <input type="hidden" name="shop_id" value="{{ user_shop.shop.id }}">
-                                    <input type="number" step="0.01" name="price" min="0">
-                                    <input name="comment" placeholder="Комментарий">
-                                    <button type="submit" name="update_price">Сохранить</button>
-                                </form>
+                                <div id="edit-btn-{{ user_product.id }}-{{ user_shop.id }}">
+                                    <a>
+                                        <button onClick="show_edit('{{ user_product.id }}', '{{ user_shop.id }}')">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </a>
+                                </div>
+                                <div id="edit-form-{{ user_product.id }}-{{ user_shop.id }}" hidden="true">
+                                    <form method="post" action="{% url 'price:update_price' %}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="user_id" value="{{ user.id }}">
+                                        <input type="hidden" name="product_id" value="{{ user_product.id }}">
+                                        <input type="hidden" name="shop_id" value="{{ user_shop.shop.id }}">
+                                        <input type="text" pattern="[0-9]+([\,][0-9]{1,2})?" name="price" value="{% for price in prices %}{% if price.product.product == user_product and price.shop.shop == user_shop.shop %}{{ price.price }}{% endif %}{% endfor %}">
+                                        <input name="comment" placeholder="Комментарий">
+                                        <button onClick="hide_edit('{{ user_product.id }}', '{{ user_shop.id }}')" type="submit" name="update_price">Сохранить</button>
+                                    </form>
+                                </div>
                             </div>
                         </td>
                     {% endfor %}
-<!--                    {% for price in prices %}-->
-<!--                        {% if price.product.product.name == user_product.name %}-->
-<!--                            <td>-->
-<!--                                {{ price.price }}-->
-<!--                            </td>-->
-<!--                        {% endif %}-->
-<!--                    {% endfor %}-->
                 </tr>
             {% endfor %}
         </tbody>
-<!--        <tbody>-->
-<!--            <tr>-->
-<!--                <td>-->
-<!--                    Ok-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--        </tbody>-->
     </table>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}

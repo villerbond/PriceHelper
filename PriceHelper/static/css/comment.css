@@ -1,0 +1,7 @@
+.mouse_popup {
+    position: absolute;
+    background: #fff;
+    border-style: inset;
+    padding: 15px;
+    z-index: 10;
+}
