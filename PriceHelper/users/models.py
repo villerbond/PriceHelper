@@ -32,6 +32,7 @@ class User_Product(models.Model):
 class User_Shop(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
+    adress = models.CharField(max_length=256, null=True, blank=True)
     difficulty = models.SmallIntegerField()
 
     def __str__(self):

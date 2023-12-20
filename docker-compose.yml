@@ -1,0 +1,26 @@
+version: "3.1"
+
+services:
+  django_server:
+    container_name: django_server
+    image: PriceHelper:latest
+    ports:
+      - 8000:8000
+    depends_on:
+      - postgres_db
+
+  postgres_db:
+    container_name: postgres_db
+    image: postgres:11.0
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: 'pricehelper_db'
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: '1234'
+    ports:
+      - 5432:5432
+
+
+volumes:
+  postgres_data:
