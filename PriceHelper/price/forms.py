@@ -21,10 +21,13 @@ class AddShopToUserForm(forms.Form):
         self.user = user
         available_shops = Shop.objects.filter(Q(author__isnull=True) | Q(author=self.user)).exclude(user_shop__user=user)
         self.fields['shop'] = forms.ModelChoiceField(queryset=available_shops.order_by('name'))
+        self.fields['adress'] = forms.CharField(widget=forms.TextInput(attrs={
+            'placeholder': 'Введите адрес магазина'
+        }), required=False)
         self.fields['difficulty'] = forms.ChoiceField(choices=[(i, i) for i in range(1, 6)])
 
     def save(self):
-        User_Shop.objects.create(user = self.user, shop = self.cleaned_data['shop'], difficulty=self.data['difficulty'])
+        User_Shop.objects.create(user = self.user, shop = self.cleaned_data['shop'], adress = self.data['adress'], difficulty=self.data['difficulty'])
 
 class AddProductForm(forms.Form):
 
@@ -52,12 +55,9 @@ class AddShopForm(forms.Form):
             'placeholder': 'Введите название магазина'
         }))
         self.fields['icon'] = forms.ImageField(widget=forms.FileInput(), required=False)
-        self.fields['adress'] = forms.CharField(widget=forms.TextInput(attrs={
-            'placeholder': 'Введите адрес магазина'
-        }), required=False)
 
     def save(self):
-        Shop.objects.create(name = self.data['name'], icon = self.cleaned_data['icon'], adress = self.data['adress'], author = self.user)
+        Shop.objects.create(name = self.data['name'], icon = self.cleaned_data['icon'], author = self.user)
 
 class UserProductChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, obj):

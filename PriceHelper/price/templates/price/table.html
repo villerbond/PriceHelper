@@ -24,6 +24,8 @@
                         {% csrf_token %}
                             <label for="{{ shop_user_form.shop.id_for_label }}">Выберите магазин</label>
                             {{ shop_user_form.shop }}
+                            <label for="{{ shop_user_form.adress.id_for_label }}">Адрес</label>
+                            {{ shop_user_form.adress }}
                             <label for="{{ shop_user_form.difficulty.id_for_label }}">Сложность</label>
                             {{ shop_user_form.difficulty }}
                             <input type="submit" value="Добавить магазин" name="add_shop_to_user">
@@ -152,10 +154,6 @@
         <div>
             <label for="{{ shop_form.icon.id_for_label }}">Выберите изображение</label>
             {{ shop_form.icon }}
-        </div>
-        <div>
-            <label for="{{ shop_form.adress.id_for_label }}">Адрес магазина</label>
-            {{ shop_form.adress }}
         </div>
         <div>
             <input type="submit" value="Создать магазин" name="add_shop">
