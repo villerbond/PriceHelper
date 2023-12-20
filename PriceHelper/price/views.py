@@ -94,13 +94,21 @@ def import_table(request, username):
 
     for product in imp_products:
         if product.product.author:
-            Product.objects.create(name=product.product.name, icon=product.product.icon, category=product.product.category, author=curr_user)
-        User_Product.objects.create(user=curr_user, product=product.product)
+            if not Product.objects.filter(name=product.product.name, author=curr_user).first():
+                Product.objects.create(name=product.product.name, icon=product.product.icon, category=product.product.category, author=curr_user)
+            author_product = Product.objects.filter(name=product.product.name, author=curr_user).first()
+            User_Product.objects.create(user=curr_user, product=author_product)
+        else:
+            User_Product.objects.create(user=curr_user, product=product.product)
 
     for shop in imp_shops:
         if shop.shop.author:
-            Shop.objects.create(name=shop.shop.name, icon=shop.shop.icon, adress=shop.shop.adress, author=curr_user)
-        User_Shop.objects.create(user=curr_user, shop=shop.shop, difficulty=shop.difficulty)
+            if not Shop.objects.filter(name=shop.shop.name, author=curr_user).first():
+                Shop.objects.create(name=shop.shop.name, icon=shop.shop.icon, author=curr_user)
+            author_shop = Shop.objects.filter(name=shop.shop.name, author=curr_user).first()
+            User_Shop.objects.create(user=curr_user, shop=author_shop, adress=shop.adress, difficulty=shop.difficulty)
+        else:
+            User_Shop.objects.create(user=curr_user, shop=shop.shop, adress=shop.adress, difficulty=shop.difficulty)
 
     for price in imp_prices:
         new_user_product = User_Product.objects.get(user=curr_user, product=price.product.product)

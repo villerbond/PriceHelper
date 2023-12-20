@@ -34,7 +34,7 @@ class AddProductForm(forms.Form):
         self.fields['name'] = forms.CharField(widget=forms.TextInput(attrs={
             'placeholder': 'Введите название продукта'
         }))
-        self.fields['icon'] = forms.ImageField()
+        self.fields['icon'] = forms.ImageField(required=False)
         self.fields['category'] = forms.ModelChoiceField(queryset=Category.objects.all())
 
     def save(self):
