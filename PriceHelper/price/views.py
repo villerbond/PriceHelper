@@ -143,8 +143,7 @@ def update_price(request):
 
 def other_tables(request):
     current_user = request.user
-    user_list = User.objects.filter(private=False).order_by('first_name', 'last_name')
-        # .exclude(id=current_user.id)
+    user_list = User.objects.filter(private=False).order_by('first_name', 'last_name').exclude(id=current_user.id)
     context = {'title': 'Другие пользователи', 'user_list': user_list}
     return render(request, 'price/other_tables.html', context)
 

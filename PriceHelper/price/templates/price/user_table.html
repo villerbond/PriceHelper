@@ -62,8 +62,10 @@
             {% endfor %}
         </tbody>
     </table>
-    <a href="{% url 'price:import_table' username=username %}">
-        Экспортировать таблицу
+    <a class="export_btn" href="{% url 'price:import_table' username=username %}">
+        <button class="export_btn">
+            Экспортировать таблицу
+        </button>
     </a>
     {% endif %}
 </div>
