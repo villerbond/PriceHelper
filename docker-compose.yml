@@ -3,7 +3,9 @@ version: "3.1"
 services:
   django_server:
     container_name: django_server
-    image: PriceHelper:latest
+    build:
+      context:
+        ./
     ports:
       - 8000:8000
     depends_on:
