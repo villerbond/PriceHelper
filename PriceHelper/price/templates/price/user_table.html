@@ -1,6 +1,10 @@
 {% extends 'price/base.html' %}
 {% load static %}
 
+{% block scripts %}
+    <script src="{% static 'js/comments_shopinfo.js' %}"></script>
+{% endblock %}
+
 {% block content %}
 
 <div>
@@ -17,16 +21,29 @@
 
                 </th>
                 {% for user_shop in user_shops %}
-                    <th>
+                    <th data-mousepopup="{% include 'price/shop_info.html' with user_shop=user_shop %}">
                         <div>
-                            <img class="shop_icon" src="{% if user_shop.icon %}
-                                {{ user_shop.icon.url }}
+                            <img class="shop_icon" src="{% if user_shop.shop.icon %}
+                                {{ user_shop.shop.icon.url }}
                                 {% else %}
                                 {% static 'img/shop/shop_default.jpg' %}
                                 {% endif %}" alt="">
                         </div>
                         <div class="cell">
-                            {{ user_shop.name }}
+                            {{ user_shop.shop.name }}
+                            <div>
+                                {% if user_shop.difficulty == 2 %}
+                                    ••◦◦◦
+                                {% elif user_shop.difficulty == 3 %}
+                                    •••◦◦
+                                {% elif user_shop.difficulty == 4 %}
+                                    ••••◦
+                                {% elif user_shop.difficulty == 5 %}
+                                    •••••
+                                {% else %}
+                                    •◦◦◦◦
+                                {% endif %}
+                            </div>
                         </div>
                     </th>
                 {% endfor %}
@@ -48,10 +65,10 @@
                         </div>
                     </td>
                     {% for user_shop in user_shops %}
-                        <td>
+                        <td data-mousepopup="{% include 'price/price_comment.html' with user_product=user_product user_shop=user_shop prices=prices %}">
                             {% for price in prices %}
                                 {% if price.product.product == user_product %}
-                                    {% if price.shop.shop == user_shop %}
+                                    {% if price.shop.shop == user_shop.shop %}
                                         {{ price.price }}
                                     {% endif %}
                                 {% endif %}

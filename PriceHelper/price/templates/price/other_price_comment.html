@@ -1,0 +1,21 @@
+{% for price in prices %}
+    {% if price.product.product == user_product and price.shop.shop == user_shop.shop %}
+        <div>
+            <b>Продукт: </b>{{ user_product.name }}
+        </div>
+        <div>
+            <b>Магазин: </b>{{ user_shop.shop.name }}
+        </div>
+        <div>
+            <b>Цена: </b>{{ price.price }}
+        </div>
+        <div>
+            <b>Комментарий: </b>
+            {% if price.comment %}
+            {{ price.comment }}
+            {% else %}
+            -
+            {% endif %}
+        </div>
+    {% endif %}
+{% endfor %}
