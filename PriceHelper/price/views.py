@@ -53,11 +53,12 @@ def table(request):
         for product in user_products:
             latest_price = Price.objects.filter(product__product__name=product.name, shop__shop__name=shop.shop.name, shop__adress=shop.adress).order_by('-date_update').first()
             if latest_price:
-                if latest_price.product.user != user:
-                    rel_price = prices.filter(product__product__name=latest_price.product.product.name, shop__shop__name=latest_price.shop.shop.name, shop__adress = latest_price.shop.adress)
-                    if rel_price.exists():
-                        if latest_price.price != rel_price.first().price:
-                            updates.append(latest_price)
+                if latest_price.shop.adress:
+                    if latest_price.product.user != user:
+                        rel_price = prices.filter(product__product__name=latest_price.product.product.name, shop__shop__name=latest_price.shop.shop.name, shop__adress = latest_price.shop.adress)
+                        if rel_price.exists():
+                            if latest_price.price != rel_price.first().price:
+                                updates.append(latest_price)
     # print(updates)
 
     context = {
