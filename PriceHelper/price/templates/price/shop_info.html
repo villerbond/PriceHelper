@@ -1,0 +1,11 @@
+<div>
+    <b>Магазин: </b>{{ user_shop.shop.name }}
+</div>
+{% if user_shop.adress %}
+    <div>
+        <b>Адрес: </b>{{ user_shop.adress }}
+    </div>
+{% endif %}
+<div>
+    <b>Сложность: </b>{{ user_shop.difficulty }}/5
+</div>
