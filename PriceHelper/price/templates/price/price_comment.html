@@ -17,5 +17,15 @@
             -
             {% endif %}
         </div>
-{% endif %}
+        {% for update in updates %}
+            {% if update.product.product.name == price.product.product.name and update.shop.shop.name == price.shop.shop.name and update.shop.adress == price.shop.adress %}
+                <div>
+                    <b>Уведомление: </b>найдена более свежая информация
+                </div>
+                <div>
+                    {{ update.product.user.first_name }} {{ update.product.user.last_name }} - {{ update.price }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 {% endfor %}

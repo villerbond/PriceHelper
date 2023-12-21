@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse
 from users.models import User, City, User_Product, User_Shop
 from price.models import Price, Basket, Product, Shop
+from django.db.models import Q
 
 # Create your views here.
 
@@ -46,6 +47,19 @@ def table(request):
     count_of_shops = len(user_shops)
     user_products = user.products.all().order_by('name')
     prices = Price.objects.filter(product__user=user)
+
+    updates = []
+    for shop in user_shops:
+        for product in user_products:
+            latest_price = Price.objects.filter(product__product__name=product.name, shop__shop__name=shop.shop.name, shop__adress=shop.adress).order_by('-date_update').first()
+            if latest_price:
+                if latest_price.product.user != user:
+                    rel_price = prices.filter(product__product__name=latest_price.product.product.name, shop__shop__name=latest_price.shop.shop.name, shop__adress = latest_price.shop.adress)
+                    if rel_price.exists():
+                        if latest_price.price != rel_price.first().price:
+                            updates.append(latest_price)
+    # print(updates)
+
     context = {
         'title': 'Таблица цен',
         'user_shops': user_shops,
@@ -55,13 +69,15 @@ def table(request):
         'shop_user_form': shop_user_form,
         'product_form': product_form,
         'shop_form': shop_form,
-        'prices': prices
+        'prices': prices,
+        'updates': updates
     }
     return render(request, 'price/table.html', context)
 
 def user_table(request, username):
     user = User.objects.get(username=username)
-    user_shops = user.shops.all().order_by('name')
+    # user_shops = user.shops.all().order_by('name')
+    user_shops = User_Shop.objects.filter(user=user)
     count_of_shops = len(user_shops)
     user_products = user.products.all().order_by('name')
     count_of_products = len(user_products)
@@ -70,7 +86,6 @@ def user_table(request, username):
         is_empty = True
     else:
         is_empty = False
-
     context = {
         'title': 'Таблица цен',
         'username': username,
@@ -111,8 +126,8 @@ def import_table(request, username):
             User_Shop.objects.create(user=curr_user, shop=shop.shop, adress=shop.adress, difficulty=shop.difficulty)
 
     for price in imp_prices:
-        new_user_product = User_Product.objects.get(user=curr_user, product=price.product.product)
-        new_user_shop = User_Shop.objects.get(user=curr_user, shop=price.shop.shop)
+        new_user_product = User_Product.objects.get(user=curr_user, product__name=price.product.product.name)
+        new_user_shop = User_Shop.objects.get(user=curr_user, shop__name=price.shop.shop.name)
         Price.objects.create(product=new_user_product, shop=new_user_shop, price=price.price)
 
     return HttpResponseRedirect(reverse('price:table'))
