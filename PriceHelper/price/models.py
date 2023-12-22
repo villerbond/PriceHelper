@@ -34,7 +34,7 @@ class Price(models.Model):
     date_update = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.shop.user.username + ': ' + self.shop.shop.name + ' ' + self.product.product.name
+        return self.shop.user.username + ': ' + self.shop.shop.name + ' (' + self.shop.adress + ') ' + self.product.product.name
     #
     # def save(self, *args, **kwargs):
     #     self.date_update = timezone.now()

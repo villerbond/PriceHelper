@@ -93,7 +93,7 @@
                     </td>
                     {% for user_shop in user_shops %}
                         <td class="price_cell {% for price in prices %}
-                            {% if price.product.product == user_product and price.shop.shop == user_shop.shop %}
+                            {% if price.product.product == user_product and price.shop.shop == user_shop.shop and price.shop.adress == user_shop.adress %}
                                 {% for update in updates %}
                                     {% if update.product.product.name == price.product.product.name and update.shop.shop.name == price.shop.shop.name and update.shop.adress == price.shop.adress %}
                                         yellow-bg
@@ -104,7 +104,7 @@
                             data-mousepopup="{% include 'price/price_comment.html' with user_product=user_product user_shop=user_shop prices=prices updates=updates%}">
                             <div class="price_value">
                                 {% for price in prices %}
-                                    {% if price.product.product == user_product and price.shop.shop == user_shop.shop %}
+                                    {% if price.product.product == user_product and price.shop.shop == user_shop.shop and price.shop.adress == user_shop.adress %}
                                         {{ price.price }}
                                     {% endif %}
                                 {% endfor %}
@@ -123,7 +123,8 @@
                                         <input type="hidden" name="user_id" value="{{ user.id }}">
                                         <input type="hidden" name="product_id" value="{{ user_product.id }}">
                                         <input type="hidden" name="shop_id" value="{{ user_shop.shop.id }}">
-                                        <input type="text" pattern="[0-9]+([\,][0-9]{1,2})?" name="price" value="{% for price in prices %}{% if price.product.product == user_product and price.shop.shop == user_shop.shop %}{{ price.price }}{% endif %}{% endfor %}">
+                                        <input type="hidden" name="adress" value="{{ user_shop.adress }}">
+                                        <input type="text" pattern="[0-9]+([\,][0-9]{1,2})?" name="price" value="{% for price in prices %}{% if price.product.product == user_product and price.shop.shop == user_shop.shop and price.shop.adress == user_shop.adress %}{{ price.price }}{% endif %}{% endfor %}">
                                         <input name="comment" placeholder="Комментарий">
                                         <button onClick="hide_edit('{{ user_product.id }}', '{{ user_shop.id }}')" type="submit" name="update_price">Сохранить</button>
                                     </form>

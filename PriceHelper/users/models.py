@@ -36,7 +36,10 @@ class User_Shop(models.Model):
     difficulty = models.SmallIntegerField()
 
     def __str__(self):
-        return self.user.username + ' - ' + self.shop.name
+        if self.adress:
+            return self.user.username + ' - ' + self.shop.name + ' (' + self.adress + ') '
+        else:
+            return self.user.username + ' - ' + self.shop.name
 
     class Meta:
         constraints = [
@@ -45,3 +48,4 @@ class User_Shop(models.Model):
                 name="A value of difficulty is valid between 1 and 5",
             )
         ]
+        unique_together = ('user', 'shop', 'adress')

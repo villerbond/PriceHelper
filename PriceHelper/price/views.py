@@ -47,6 +47,7 @@ def table(request):
     count_of_shops = len(user_shops)
     user_products = user.products.all().order_by('name')
     prices = Price.objects.filter(product__user=user)
+    # print(prices)
 
     updates = []
     for shop in user_shops:
@@ -152,10 +153,11 @@ def update_price(request):
         user_id = request.POST.get('user_id')
         product_id = request.POST.get('product_id')
         shop_id = request.POST.get('shop_id')
+        adress = request.POST.get('adress')
         price_value = request.POST.get('price')
         comment = request.POST.get('comment')
         user_product = User_Product.objects.get(user_id=user_id, product_id=product_id)
-        user_shop = User_Shop.objects.get(user_id=user_id, shop_id=shop_id)
+        user_shop = User_Shop.objects.get(user_id=user_id, shop_id=shop_id, adress=adress)
         price, created = Price.objects.get_or_create(product = user_product, shop = user_shop)
         if price_value:
             price.price = float(price_value.replace(",", "."))

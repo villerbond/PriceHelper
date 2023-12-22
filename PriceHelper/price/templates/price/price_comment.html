@@ -1,5 +1,5 @@
 {% for price in prices %}
-    {% if price.product.product == user_product and price.shop.shop == user_shop.shop %}
+    {% if price.product.product == user_product and price.shop.shop == user_shop.shop and price.shop.adress == user_shop.adress %}
         <div>
             <b>Продукт: </b>{{ user_product.name }}
         </div>

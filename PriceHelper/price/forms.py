@@ -19,7 +19,7 @@ class AddShopToUserForm(forms.Form):
     def __init__(self, user, *args, **kwargs):
         super(AddShopToUserForm, self).__init__(*args, **kwargs)
         self.user = user
-        available_shops = Shop.objects.filter(Q(author__isnull=True) | Q(author=self.user)).exclude(user_shop__user=user)
+        available_shops = Shop.objects.filter(Q(author__isnull=True) | Q(author=self.user))
         self.fields['shop'] = forms.ModelChoiceField(queryset=available_shops.order_by('name'))
         self.fields['adress'] = forms.CharField(widget=forms.TextInput(attrs={
             'placeholder': 'Введите адрес магазина'
